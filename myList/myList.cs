@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace myList
 {
-    public class List<T> : IList<T>, IEnumerable<T>
+    public class myList<T> : IList<T>, IEnumerable<T>
     {
         private Node<T>? _head;
         private Node<T>? _tail;
         public int Count { get; private set; }
 
-        public List()
+        public myList()
         {
             _head = null;
             _tail = null;
