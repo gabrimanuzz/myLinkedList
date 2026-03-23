@@ -78,37 +78,17 @@ namespace myList
             return current!.Value;
         }
 
-        public void Clear()
+        public void SetAt(int index, T value)
         {
-            _head = null;
-            _tail = null;
-            Count = 0;
-        }
+            if (index < 0 || index >= Count)
+                throw new ArgumentOutOfRangeException(nameof(index));
 
-        public bool Contains(T value)
-        {
             Node<T>? current = _head;
-            while (current != null)
-            {
-                if (EqualityComparer<T>.Default.Equals(current.Value, value))
-                    return true;
-                current = current.Next;
-            }
-            return false;
-        }
+            for (int i = 0; i < index; i++)
+                current = current!.Next;
 
-        // foreach implemented
-        public IEnumerator<T> GetEnumerator()
-        {
-            Node<T>? current = _head;
-            while (current != null)
-            {
-                yield return current.Value;
-                current = current.Next;
-            }
+            current!.Value = value;
         }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public void RemoveAt(int index)
         {
@@ -160,5 +140,37 @@ namespace myList
             }
             return -1;
         }
+
+        public bool Contains(T value)
+        {
+            Node<T>? current = _head;
+            while (current != null)
+            {
+                if (EqualityComparer<T>.Default.Equals(current.Value, value))
+                    return true;
+                current = current.Next;
+            }
+            return false;
+        }
+
+        public void Clear()
+        {
+            _head = null;
+            _tail = null;
+            Count = 0;
+        }
+
+        // foreach implemented
+        public IEnumerator<T> GetEnumerator()
+        {
+            Node<T>? current = _head;
+            while (current != null)
+            {
+                yield return current.Value;
+                current = current.Next;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
